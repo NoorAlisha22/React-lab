@@ -6,6 +6,7 @@ const App = () => {
   const [text, setText] = useState('');
   const [editId, setEditId] = useState(null);
   const [editText, setEditText] = useState('');
+  const [completedIds, setCompletedIds] = useState([]);
 
   const addTodo = () => {
     if (!text.trim()) return;
@@ -38,6 +39,12 @@ const App = () => {
     setEditText('');
   };
 
+  const toggleComplete = (id) => {
+    setCompletedIds(prev =>
+      prev.includes(id) ? prev.filter(cid => cid !== id) : [...prev, id]
+    );
+  };
+
   return (
     <div className='wrapper' >
       <h1>React ToDo App</h1>
@@ -53,7 +60,7 @@ const App = () => {
       </div>
       <ul >
         {todos.map(todo => (
-          <li key={todo.id}>
+          <li key={todo.id} className={completedIds.includes(todo.id) ? 'completed' : ''}>
             {editId === todo.id ? (
               <>
                 <input
@@ -73,10 +80,12 @@ const App = () => {
               </>
             ) : (
               <>
-                {todo.text}
+                <span style={{textDecoration: completedIds.includes(todo.id) ? 'line-through' : 'none'}}>{todo.text}</span>
                 <span className="actions">
-                  <button onClick={() => deleteTodo(todo.id)} >x</button>
+                  <button onClick={() => toggleComplete(todo.id)}>{completedIds.includes(todo.id) ? 'Undo' : 'Completed'}</button>
                   <button onClick={() => startEdit(todo.id, todo.text)}>Edit</button>
+                  <button onClick={() => deleteTodo(todo.id)} >x</button>
+
                 </span>
               </>
             )}
