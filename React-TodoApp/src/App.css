@@ -81,6 +81,12 @@ li {
   box-sizing: border-box;
 }
 
+li .actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
 li button {
   background-color: red;
   border: none;
