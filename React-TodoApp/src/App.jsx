@@ -85,7 +85,6 @@ const App = () => {
                   <button onClick={() => toggleComplete(todo.id)}>{completedIds.includes(todo.id) ? 'Undo' : 'Completed'}</button>
                   <button onClick={() => startEdit(todo.id, todo.text)}>Edit</button>
                   <button onClick={() => deleteTodo(todo.id)} >x</button>
-
                 </span>
               </>
             )}
